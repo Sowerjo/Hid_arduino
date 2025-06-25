@@ -1,0 +1,93 @@
+uint8_t buf[8] = {0};  // Buffer de relatório do teclado: 8 bytes
+
+// Definição dos pinos para as teclas F1 a F13
+#define PIN_F1 A0
+#define PIN_F2 A1
+#define PIN_F3 A2
+#define PIN_F4 A3
+#define PIN_F5 2
+#define PIN_F6 3
+#define PIN_F7 4
+#define PIN_F8 5
+#define PIN_F9 6
+#define PIN_F10 7
+#define PIN_F11 8
+#define PIN_F12 9
+#define PIN_F13 10
+
+// Variáveis de estado atual e anterior para cada tecla
+bool currState_F[13];
+bool prevState_F[13];
+unsigned long prevTime_F[13];
+const unsigned long waitTime = 50;  // Tempo de debounce comum
+
+void setup() 
+{
+  Serial.begin(9600);
+
+  // Configuração dos pinos como entradas com pull-up interno
+  pinMode(PIN_F1, INPUT_PULLUP);
+  pinMode(PIN_F2, INPUT_PULLUP);
+  pinMode(PIN_F3, INPUT_PULLUP);
+  pinMode(PIN_F4, INPUT_PULLUP);
+  pinMode(PIN_F5, INPUT_PULLUP);
+  pinMode(PIN_F6, INPUT_PULLUP);
+  pinMode(PIN_F7, INPUT_PULLUP);
+  pinMode(PIN_F8, INPUT_PULLUP);
+  pinMode(PIN_F9, INPUT_PULLUP);
+  pinMode(PIN_F10, INPUT_PULLUP);
+  pinMode(PIN_F11, INPUT_PULLUP);
+  pinMode(PIN_F12, INPUT_PULLUP);
+  pinMode(PIN_F13, INPUT_PULLUP);
+
+  // Inicialização das variáveis de estado
+  for (int i = 0; i < 13; i++) {
+    currState_F[i] = HIGH;
+    prevState_F[i] = HIGH;
+    prevTime_F[i] = 0;
+  }
+  
+  delay(200);
+}
+
+void loop() 
+{
+  checkButtons();
+}
+
+void checkButtons() {
+  // Array de pinos correspondentes às teclas F1 a F13
+  uint8_t pins[13] = {PIN_F1, PIN_F2, PIN_F3, PIN_F4, PIN_F5, PIN_F6, PIN_F7, PIN_F8, PIN_F9, PIN_F10, PIN_F11, PIN_F12, PIN_F13};
+  // Códigos HID para F1 a F13
+  uint8_t hidCodes[13] = {58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 104};
+
+  for (int i = 0; i < 13; i++) {
+    bool currRead = digitalRead(pins[i]);
+
+    if (currRead != prevState_F[i]) {
+      prevTime_F[i] = millis();
+    }
+
+    if ((millis() - prevTime_F[i]) > waitTime) {
+      if (currRead != currState_F[i]) {
+        currState_F[i] = currRead;
+        if (currState_F[i] == LOW) {
+          // Botão pressionado
+          buf[2] = hidCodes[i];  // Código HID correspondente
+          Serial.write(buf, 8);  // Envia o relatório
+        } else {
+          // Botão liberado
+          releaseKey();
+        }
+      }
+    }
+    prevState_F[i] = currRead;
+  }
+}
+
+void releaseKey() 
+{
+  buf[0] = 0;
+  buf[2] = 0;
+  Serial.write(buf, 8); // Libera a tecla  
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfigData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <configVersion>1</configVersion>
+  <updateCheck>1731766455</updateCheck>
+  <skipVersion>
+    <Major>2</Major>
+    <Minor>18</Minor>
+  </skipVersion>
+  <toolTips>true</toolTips>
+  <avrdudeLoc />
+  <avrdudeConfLoc />
+  <avrSizeLoc />
+  <windowLocation>
+    <X>966</X>
+    <Y>195</Y>
+  </windowLocation>
+  <language>english</language>
+  <hiddenMCUs />
+  <hiddenProgrammers />
+  <previousSettings>
+    <programmer>usbasp</programmer>
+    <mcu>m16u2</mcu>
+    <port />
+    <baud />
+    <bitclock />
+    <flashFile>C:\Users\Sower\OneDrive\PESSOAL\JOEL\ARDUINO\HID PARA ARDUINO UNO FUNCIONAL\Arduino-keyboard-0.3.hex</flashFile>
+    <flashFormat>a</flashFormat>
+    <flashOp>w</flashOp>
+    <EEPROMFile />
+    <EEPROMFormat>a</EEPROMFormat>
+    <EEPROMOp>v</EEPROMOp>
+    <force>false</force>
+    <disableVerify>false</disableVerify>
+    <disableFlashErase>false</disableFlashErase>
+    <eraseFlashAndEEPROM>false</eraseFlashAndEEPROM>
+    <doNotWrite>false</doNotWrite>
+    <lfuse>0xFF</lfuse>
+    <hfuse>0xDE</hfuse>
+    <efuse>0xFD</efuse>
+    <setFuses>false</setFuses>
+    <lockBits>0xFF</lockBits>
+    <setLock>false</setLock>
+    <additional />
+    <verbosity>0</verbosity>
+    <name />
+  </previousSettings>
+  <usePreviousSettings>true</usePreviousSettings>
+  <windowSize>
+    <Width>792</Width>
+    <Height>670</Height>
+  </windowSize>
+  <checkForUpdates>true</checkForUpdates>
+</ConfigData>
